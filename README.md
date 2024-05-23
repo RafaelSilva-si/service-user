@@ -7,10 +7,10 @@ criação de uma aplicação de vendas de tickets para eventos. Adotando prátic
 
 O módulo de usuários gerencia informações de usuários, incluindo os campos Id, Nome, Email e Telefone. Ele permite a criação, leitura, atualização e exclusão (CRUD) de registros de usuários, garantindo que cada usuário tenha um identificador único (Id), um nome, um endereço de email e um número de telefone para contato.
 
-- POST / USER
-- GET /USER
+- POST / USER (name, email, password, confirmPassword, phone)
+- GET /USER (params para filtro: (name, email, phone))
 - GET /USER/:ID
-- PATCH /USER/:ID
+- PATCH /USER/:ID (name, email, password, confirmPassword, phone)
 - DELETE /USER/:ID
 
 ## Boas Práticas
