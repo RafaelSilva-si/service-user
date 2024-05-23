@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "name": "Leticia",
+        "CPF": "475-505-828-52",
+        "email": "leticia@test.com",
+        "password": "Rafa1234-",
+        "phone": "11940028422"
+    },
+    {
+        "id": "2",
+        "name": "Rafael Silva",
+        "CPF": "476-505-828-42",
+        "email": "rafael@test.com",
+        "password": "Rafa1234-",
+        "phone": "11940028922"
+    }
+]

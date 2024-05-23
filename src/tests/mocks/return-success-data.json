@@ -1,0 +1,8 @@
+{
+    "id": "1",
+    "name": "Rafael Silva",
+    "CPF": "475-505-828-52",
+    "email": "rafael@test.com",
+    "password": "senhaCriptografada",
+    "phone": "11940028922"
+}
