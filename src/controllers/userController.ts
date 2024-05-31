@@ -4,6 +4,7 @@ import UpdateUserService from '../services/update-user.service';
 import GetAllUserService from '../services/get-all-user.service';
 import RemoveUserService from '../services/remove-user.service';
 import ValidateUserService from '../services/validate-user.service';
+import GetUserByIDService from '../services/get-user-by-id.service';
 
 class UserController {
   private readonly addUserService: AddUserService;
@@ -11,6 +12,7 @@ class UserController {
   private readonly getAllUserService: GetAllUserService;
   private readonly removeUserService: RemoveUserService;
   private readonly validateUserService: ValidateUserService;
+  private readonly getUserByIDService: GetUserByIDService;
 
   constructor(
     addUserService: AddUserService,
@@ -18,17 +20,29 @@ class UserController {
     getAllUserService: GetAllUserService,
     removeUserService: RemoveUserService,
     validateUserService: ValidateUserService,
+    getUserByIDService: GetUserByIDService,
   ) {
     this.addUserService = addUserService;
     this.updateUserService = updateUserService;
     this.getAllUserService = getAllUserService;
     this.removeUserService = removeUserService;
     this.validateUserService = validateUserService;
+    this.getUserByIDService = getUserByIDService;
   }
 
   public getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const result = await this.getAllUserService.getAll(req.query);
+      res.status(200).send(result);
+    } catch (error) {
+      res.status(error.status || 500).send(error.message || 'Server Error');
+      next(error);
+    }
+  };
+
+  public getById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await this.getUserByIDService.getById(req.params.id);
       res.status(200).send(result);
     } catch (error) {
       res.status(error.status || 500).send(error.message || 'Server Error');
