@@ -2,11 +2,14 @@ import UserModel from '../data/models/User';
 import { User } from '../domain/models/user';
 import { AddUser, AddUserModel } from '../domain/usecases/add-user';
 import { GetAllUser } from '../domain/usecases/get-all-user';
+import { GetUserByID } from '../domain/usecases/get-user-by-id';
 import { RemoveUser } from '../domain/usecases/remove-user';
 import { UpdateUser, UpdateUserModel } from '../domain/usecases/update-user';
 import DBError from '../utils/errors/dbError';
 
-class UserRepository implements AddUser, UpdateUser, RemoveUser, GetAllUser {
+class UserRepository
+  implements AddUser, UpdateUser, RemoveUser, GetAllUser, GetUserByID
+{
   public async getAll(params: any): Promise<User[] | []> {
     try {
       return await UserModel.find(params);
