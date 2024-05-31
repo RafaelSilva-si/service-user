@@ -11,9 +11,9 @@ interface IUser extends Document {
 }
 
 const userSchema: Schema<IUser> = new Schema({
-  id: {
-    type: String,
-    default: () => new mongoose.Types.ObjectId().toString(),
+  _id: {
+    type: mongoose.Types.ObjectId,
+    auto: true,
   },
   name: {
     type: String,
