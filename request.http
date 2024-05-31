@@ -1,0 +1,38 @@
+### Obter todos os usuários
+GET http://localhost:3001/
+
+### Adicionar um novo usuário
+POST http://localhost:3001/
+Content-Type: application/json
+
+{
+  "name": "João da Silva",
+  "email": "joao@example.com",
+  "password": "senha123",
+  "confirmPassword": "senha123",
+  "CPF": "123.456.789-00",
+  "phone": "(11) 99999-9999"
+}
+
+### Atualizar um usuário
+PATCH http://localhost:3001/665906cc95c59ac49266dbf5
+Content-Type: application/json
+
+{
+  "name": "João da Silva",
+  "email": "joao@example.com",
+  "CPF": "123.456.789-00",
+  "phone": "(11) 99999-9999"
+}
+
+### Remover um usuário
+DELETE http://localhost:3001/665906cc95c59ac49266dbf5
+
+### Validar Usuário
+POST http://localhost:3001/validate
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "senha123"
+}

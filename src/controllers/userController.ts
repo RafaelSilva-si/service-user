@@ -1,26 +1,47 @@
 import { NextFunction, Request, Response } from 'express';
-import UserService from '../services/user/userService';
+import AddUserService from '../services/add-user.service';
+import UpdateUserService from '../services/update-user.service';
+import GetAllUserService from '../services/get-all-user.service';
+import RemoveUserService from '../services/remove-user.service';
+import ValidateUserService from '../services/validate-user.service';
 
 class UserController {
-  private readonly userService: UserService;
-  constructor(userService: UserService) {
-    this.userService = userService;
+  private readonly addUserService: AddUserService;
+  private readonly updateUserService: UpdateUserService;
+  private readonly getAllUserService: GetAllUserService;
+  private readonly removeUserService: RemoveUserService;
+  private readonly validateUserService: ValidateUserService;
+
+  constructor(
+    addUserService: AddUserService,
+    updateUserService: UpdateUserService,
+    getAllUserService: GetAllUserService,
+    removeUserService: RemoveUserService,
+    validateUserService: ValidateUserService,
+  ) {
+    this.addUserService = addUserService;
+    this.updateUserService = updateUserService;
+    this.getAllUserService = getAllUserService;
+    this.removeUserService = removeUserService;
+    this.validateUserService = validateUserService;
   }
 
   public getAll = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.userService.getAll(req.query);
+      const result = await this.getAllUserService.getAll(req.query);
       res.status(200).send(result);
     } catch (error) {
+      res.status(error.status || 500).send(error.message || 'Server Error');
       next(error);
     }
   };
 
   public addUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = await this.userService.addUser(req.body);
+      const result = await this.addUserService.add(req.body);
       res.status(201).send(result);
     } catch (error) {
+      res.status(error.status || 500).send(error.message || 'Server Error');
       next(error);
     }
   };
@@ -31,9 +52,13 @@ class UserController {
     next: NextFunction,
   ) => {
     try {
-      const result = await this.userService.updateUser(req.params.id, req.body);
+      const result = await this.updateUserService.update(
+        req.params.id,
+        req.body,
+      );
       res.status(201).send(result);
     } catch (error) {
+      res.status(error.status || 500).send(error.message || 'Server Error');
       next(error);
     }
   };
@@ -44,19 +69,25 @@ class UserController {
     next: NextFunction,
   ) => {
     try {
-      const result = await this.userService.removeUser(req.params.id);
+      const result = await this.removeUserService.remove(req.params.id);
       res.status(201).send(result);
     } catch (error) {
+      res.status(error.status || 500).send(error.message || 'Server Error');
       next(error);
     }
   };
 
-  public validateUser = async (req: Request, res: Response) => {
+  public validateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
     try {
-      const result = await this.userService.validateUser(req.body);
+      const result = await this.validateUserService.validate(req.body);
       res.status(201).send(result);
     } catch (error) {
-      res.status(error.statusCode || 500).send(error.message);
+      res.status(error.status || 500).send(error.message || 'Server Error');
+      next(error);
     }
   };
 }
